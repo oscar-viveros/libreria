@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListLibroTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListLibroEmpty}" rendered="#{libroController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{libroController.items.rowCount > 0}">
+                    <h:outputText value="#{libroController.pagination.pageFirstItem + 1}..#{libroController.pagination.pageLastItem + 1}/#{libroController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{libroController.previous}" value="#{bundle.Previous} #{libroController.pagination.pageSize}" rendered="#{libroController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{libroController.next}" value="#{bundle.Next} #{libroController.pagination.pageSize}" rendered="#{libroController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{libroController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLibroTitle_idLibro}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idLibro}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLibroTitle_libTitulo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.libTitulo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLibroTitle_libImagen}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.libImagen}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLibroTitle_libAutor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.libAutor.perNombre} #{item.libAutor.perApellido}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLibroTitle_libGenero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.libGenero.genNombre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{libroController.prepareView}" value="#{bundle.ListLibroViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{libroController.prepareEdit}" value="#{bundle.ListLibroEditLink}"
+                                           rendered="#{usuarioRolController.getSession().obtenerUsuarioLogueado().
+                                                       idRolSeleccionado==1}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{libroController.destroy}" value="#{bundle.ListLibroDestroyLink}"
+                                           rendered="#{usuarioRolController.getSession().
+                                                       obtenerUsuarioLogueado().idRolSeleccionado==1}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditUsuarioRolTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditUsuarioRolLabel_idUsuarioRol}" for="idUsuarioRol" />
+                    <h:inputText id="idUsuarioRol" value="#{usuarioRolController.selected.idUsuarioRol}" title="#{bundle.EditUsuarioRolTitle_idUsuarioRol}" required="true" requiredMessage="#{bundle.EditUsuarioRolRequiredMessage_idUsuarioRol}"/>
+                    <h:outputLabel value="#{bundle.EditUsuarioRolLabel_urEstado}" for="urEstado" />
+                    <h:inputText id="urEstado" value="#{usuarioRolController.selected.urEstado}" title="#{bundle.EditUsuarioRolTitle_urEstado}" />
+                    <h:outputLabel value="#{bundle.EditUsuarioRolLabel_urRol}" for="urRol" />
+                    <h:selectOneMenu id="urRol" value="#{usuarioRolController.selected.urRol}" title="#{bundle.EditUsuarioRolTitle_urRol}" >
+                        <f:selectItems value="#{rolController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditUsuarioRolLabel_urUsuario}" for="urUsuario" />
+                    <h:selectOneMenu id="urUsuario" value="#{usuarioRolController.selected.urUsuario}" title="#{bundle.EditUsuarioRolTitle_urUsuario}" >
+                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{usuarioRolController.update}" value="#{bundle.EditUsuarioRolSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditUsuarioRolViewLink}"/>
+                <br />
+                <h:commandLink action="#{usuarioRolController.prepareList}" value="#{bundle.EditUsuarioRolShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditUsuarioRolIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

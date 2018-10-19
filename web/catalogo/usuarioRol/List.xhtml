@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListUsuarioRolTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListUsuarioRolEmpty}" rendered="#{usuarioRolController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{usuarioRolController.items.rowCount > 0}">
+                    <h:outputText value="#{usuarioRolController.pagination.pageFirstItem + 1}..#{usuarioRolController.pagination.pageLastItem + 1}/#{usuarioRolController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{usuarioRolController.previous}" value="#{bundle.Previous} #{usuarioRolController.pagination.pageSize}" rendered="#{usuarioRolController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{usuarioRolController.next}" value="#{bundle.Next} #{usuarioRolController.pagination.pageSize}" rendered="#{usuarioRolController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{usuarioRolController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioRolTitle_idUsuarioRol}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUsuarioRol}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioRolTitle_urEstado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.urEstado}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioRolTitle_urRol}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.urRol}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuarioRolTitle_urUsuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.urUsuario}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{usuarioRolController.prepareView}" value="#{bundle.ListUsuarioRolViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{usuarioRolController.prepareEdit}" value="#{bundle.ListUsuarioRolEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{usuarioRolController.destroy}" value="#{bundle.ListUsuarioRolDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{usuarioRolController.prepareCreate}" value="#{bundle.ListUsuarioRolCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListUsuarioRolIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

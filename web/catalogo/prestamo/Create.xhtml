@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePrestamoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePrestamoLabel_idPrestamo}" for="idPrestamo" />
+                    <h:inputText id="idPrestamo" value="#{prestamoController.selected.idPrestamo}" title="#{bundle.CreatePrestamoTitle_idPrestamo}" required="true" requiredMessage="#{bundle.CreatePrestamoRequiredMessage_idPrestamo}"/>
+                    <h:outputLabel value="#{bundle.CreatePrestamoLabel_presFechaInicio}" for="presFechaInicio" />
+                    <h:inputText id="presFechaInicio" value="#{prestamoController.selected.presFechaInicio}" title="#{bundle.CreatePrestamoTitle_presFechaInicio}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreatePrestamoLabel_presEstado}" for="presEstado" />
+                    <h:inputText id="presEstado" value="#{prestamoController.selected.presEstado}" title="#{bundle.CreatePrestamoTitle_presEstado}" />
+                    <h:outputLabel value="#{bundle.CreatePrestamoLabel_idLibro}" for="idLibro" />
+                    <h:selectOneMenu id="idLibro" value="#{prestamoController.selected.idLibro}" title="#{bundle.CreatePrestamoTitle_idLibro}" >
+                        <f:selectItems value="#{libroController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePrestamoLabel_idUsuariorol}" for="idUsuariorol" />
+                    <h:selectOneMenu id="idUsuariorol" value="#{prestamoController.selected.idUsuariorol}" title="#{bundle.CreatePrestamoTitle_idUsuariorol}" >
+                        <f:selectItems value="#{usuarioRolController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{prestamoController.create}" value="#{bundle.CreatePrestamoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{prestamoController.prepareList}" value="#{bundle.CreatePrestamoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePrestamoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="template.xhtml" >
+        <ui:define name="top">
+            <div align="right">
+                <h:form>
+                    <p:commandLink onclick="PF('dlgLogin').show()" title="Entrar">
+                        <h:outputText value="INGRESAR AL SISTEMA"/>
+                    </p:commandLink>
+                </h:form>
+            </div>           
+        </ui:define>
+
+        <ui:define name="content"> 
+
+            <p:dialog id="dialog" header="Iniciar Sesi&oacute;n" widgetVar="dlgLogin" closable="false" 
+                      width="400" resizable="false" hideEffect="explode" modal="true">
+                <h:form>
+                    <p:growl id="growl" showDetail="true" life="3000"/>
+                    <h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:column>
+                                <b><h:outputText value="Login"/></b>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="login" value="#{usuarioRolController.selected.urUsuario.usuLogin}" 
+                                             requiredMessage="El campo Login es obligatorio"/>
+                            </p:column>
+                            <p:column>
+                                <b><h:outputText value="Contrase&ntilde;a"/></b>
+                            </p:column>
+                            <p:column>
+                                <h:inputSecret id="password" value="#{usuarioRolController.selected.urUsuario.usuPassword}" 
+                                               requiredMessage="El Campo Contraseña es obligatorio"/>
+                            </p:column>
+                        </h:panelGrid>
+                        <p:fragment>
+                        <p:commandLink value="¿Olvid&oacute; su contrase&ntilde;a?"
+                                       onclick="PF('dlgContras').show()" />    
+                        </p:fragment>
+                        <f:facet name="footer">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <p:commandButton value="Entrar" icon="ui-icon-key" update="growl" 
+                                             action="#{usuarioRolController.autenticarUsuario()}"/>
+                            &nbsp;
+                            <p:commandButton value="Cancelar" icon="ui-icon-circle-close" 
+                                             onclick="PF('dlgLogin').cancel()"/>
+                        </f:facet>
+                    </h:panelGrid>  
+                </h:form>
+            </p:dialog>
+            
+            <p:dialog id="rec_contrasenia" header="Recuperar contrase&ntilde;a" widgetVar="dlgContras"
+                      modal="true">
+                 <h:form>
+                    <h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:column>
+                                <b><h:outputText value="Correo"/></b>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="login" value="#{usuarioRolController.correo}" 
+                                             requiredMessage="El campo Login es obligatorio"/>
+                            </p:column>
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <p:commandButton value="Recuperar" icon="ui-icon-key" update=""
+                                             action="#{usuarioRolController.recuperarContrasenia()}"/>
+                            &nbsp;
+                            <p:commandButton value="Cancelar" icon="ui-icon-circle-close" 
+                                             onclick="PF('dlgContras').cancel()"/>
+                        </f:facet>
+                    </h:panelGrid>  
+                </h:form>
+            </p:dialog>
+
+            Hola, estoy en el index
+        </ui:define>
+    </ui:composition>
+</html>
+
