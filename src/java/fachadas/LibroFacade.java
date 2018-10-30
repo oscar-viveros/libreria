@@ -40,6 +40,13 @@ public class LibroFacade extends AbstractFacade<Libro> {
         super(Libro.class);
     }
     
+    public List<Libro> buscarPorAutor(Integer idAutor){
+        em = getEntityManager();
+        Query q = em.createQuery("SELECT l FROM Libro l WHERE l.libAutor.idPersona = :idAutor");
+        q.setParameter("idAutor", idAutor);
+        return q.getResultList();
+    }
+    
     // DECLARACION DEL SERVICIO WEB
     @GET
     @Path("findLibros")
@@ -53,7 +60,7 @@ public class LibroFacade extends AbstractFacade<Libro> {
         // Obtengo los datos necesarios para el json
         List<LibroVO> listaVO = new ArrayList<>();
         for(Libro l : lista){
-            LibroVO lVO = new LibroVO(l.getIdLibro(), 
+            LibroVO lVO = new LibroVO(l.getIdLibro(),
                     l.getLibTitulo(), 
                     l.getLibImagen(), 
                     l.getLibAutor().getPerNombre(), 
@@ -62,12 +69,6 @@ public class LibroFacade extends AbstractFacade<Libro> {
         }
         // Convierto la lista (objeto) a json
         String json = gson.toJson(listaVO);
-        
-        
-        Query q = em.createQuery("SELECT l FROM Libro l WHERE l.libAutor.perApellido = 'Viveros'");
-        Libro l = (Libro) q.getSingleResult();
-        l.setLibImagen("OTRO PNG");
-        em.merge(l);
         
         return json;
     }

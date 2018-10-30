@@ -82,6 +82,9 @@
                                             <p:menuitem value="Solicitar"/>
                                             <p:menuitem value="Consultar"/>
                                         </p:submenu>
+                                        <p:menuitem value="Reportes" outcome="/catalogo/reportes"
+                                                    rendered="#{usuarioRolController.getSession()
+                                                                    .obtenerUsuarioLogueado().idRolSeleccionado==1}"/>
                                     </p:menu>     
                                 </h:panelGrid>
                             </h:panelGrid>

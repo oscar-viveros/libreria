@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="libros" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="67270b1b-c1a2-4899-b35d-da6c83c251b6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="idLibro" class="java.lang.Integer"/>
+	<field name="libTitulo" class="java.lang.String"/>
+	<field name="libImagen" class="java.lang.String"/>
+	<field name="libAutor" class="java.lang.String"/>
+	<field name="libGenero" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="157" y="3" width="232" height="20" uuid="400f6780-4082-447e-ae94-eaf709dd0ac6"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AUTOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="3" width="157" height="20" uuid="2636a9c1-1223-4153-b2a1-af129085d77d"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TITULO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="3" width="100" height="20" uuid="5ec208ee-df56-4e03-b9b7-2e9855380dcc"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GENERO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="157" y="0" width="232" height="20" uuid="bae3567e-7b9e-46db-8ab8-9022f2d42415"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{libAutor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="157" height="20" uuid="f2a5952e-42d7-48c3-bd96-7b8e418ab9b5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{libTitulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="0" width="100" height="20" uuid="0264a07b-9aac-459d-827b-2486f5df9379"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{libGenero}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -7,23 +7,19 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -58,6 +54,8 @@ public class Persona implements Serializable {
     @Column(name = "per_fechanacimiento")
     @Temporal(TemporalType.TIMESTAMP)
     private Date perFechanacimiento;
+    @Column(name = "per_esautor")
+    private Integer perEsautor;
 //    @OneToMany(mappedBy = "libAutor", fetch = FetchType.EAGER)
 //    private List<Libro> libroList;
 //    @OneToMany(mappedBy = "usuPersona", fetch = FetchType.EAGER)
@@ -108,6 +106,14 @@ public class Persona implements Serializable {
 
     public void setPerFechanacimiento(Date perFechanacimiento) {
         this.perFechanacimiento = perFechanacimiento;
+    }
+
+    public Integer getPerEsautor() {
+        return perEsautor;
+    }
+
+    public void setPerEsautor(Integer perEsautor) {
+        this.perEsautor = perEsautor;
     }
 
 //    @XmlTransient

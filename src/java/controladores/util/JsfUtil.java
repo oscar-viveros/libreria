@@ -1,5 +1,7 @@
 package controladores.util;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -17,8 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class JsfUtil {
-    
-    
+
     public static SelectItem[] getSelectItems(List<?> entities, boolean selectOne) {
         int size = selectOne ? entities.size() + 1 : entities.size();
         SelectItem[] items = new SelectItem[size];
@@ -70,24 +71,24 @@ public class JsfUtil {
     private static final String CORREO_DE = "banco.adsi@gmail.com";
     private static Properties properties;
 
-    public static void sendMail(String para, String asunto, String correo){
-        
+    public static void sendMail(String para, String asunto, String correo) {
+
         try {
             properties = System.getProperties();
             properties.put("mail.smtp.host", "smtp.gmail.com");
             properties.put("mail.smtp.starttls.enable", "true");
             properties.put("mail.smtp.auth", "true");
-            
+
             javax.mail.Session session = javax.mail.Session.getInstance(properties,
                     new javax.mail.Authenticator() {
                         protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(CORREO_DE,"ProyectoBanco");
+                            return new PasswordAuthentication(CORREO_DE, "ProyectoBanco");
                         }
                     });
-            
+
             MimeMessage mensaje = new MimeMessage(session);
             mensaje.setFrom(new InternetAddress(CORREO_DE));
-            mensaje.setRecipient(Message.RecipientType.TO, 
+            mensaje.setRecipient(Message.RecipientType.TO,
                     new InternetAddress(para));
             mensaje.setSubject(asunto);
             mensaje.setContent("<h3>" + correo + "</h3>", "text/html");
@@ -95,5 +96,13 @@ public class JsfUtil {
         } catch (MessagingException ex) {
             Logger.getLogger(JsfUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static <T> List<T> copiarIterator(Iterator<T> iter) {
+        List<T> copy = new ArrayList<T>();
+        while (iter.hasNext()) {
+            copy.add(iter.next());
+        }
+        return copy;
     }
 }

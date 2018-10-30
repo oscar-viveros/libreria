@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml" >
+
+        <ui:define name="content">
+
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Tipo de reporte:"/>
+                    <h:selectOneMenu value="#{reportesController.idTipoReporteSelec}">
+                        <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                        <f:selectItem itemLabel="Todos los libros" itemValue="1"/>
+                        <f:selectItem itemLabel="Libros por autor" itemValue="2"/>
+                        <f:selectItem itemLabel="Prestamos por mes" itemValue="3"/>
+                    </h:selectOneMenu>
+                    <h:outputText value="Exportar como:"/>
+                    <h:selectOneMenu value="#{reportesController.exportaComo}">
+                        <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                        <f:selectItem itemLabel="PDF" itemValue="pdf"/>
+                        <f:selectItem itemLabel="EXCEL" itemValue="xlsx"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br/>
+                <h:commandButton value="Generar reporte" 
+                                 action="#{reportesController.generarReporte()}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

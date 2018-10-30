@@ -6,9 +6,11 @@
 package fachadas;
 
 import entidades.Persona;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,4 +30,9 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         super(Persona.class);
     }
     
+    public List<Persona> buscarAutores(){
+        em = getEntityManager();
+        Query q = em.createQuery("SELECT p FROM Persona p WHERE p.perEsautor = 1");
+        return q.getResultList();
+    }
 }

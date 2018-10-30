@@ -1,16 +1,21 @@
 package controladores;
 
+import controladores.util.GeneradorReportes;
 import entidades.Libro;
 import controladores.util.JsfUtil;
 import controladores.util.PaginationHelper;
 import entidades.Genero;
 import entidades.Persona;
+import entidades.vo.LibroVO;
 import fachadas.GeneroFacade;
 import fachadas.LibroFacade;
 import fachadas.PersonaFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -22,6 +27,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @ManagedBean(name = "libroController")
 @SessionScoped
@@ -31,10 +37,10 @@ public class LibroController implements Serializable {
     private List<Persona> listaPersonas;
     private Genero genero;
     private List<Genero> listaGeneros;
-    
+
     private Libro current;
     private DataModel items = null;
-    @EJB 
+    @EJB
     private LibroFacade ejbFacade;
     @EJB
     private PersonaFacade personaFacade;
