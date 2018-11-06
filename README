@@ -1,0 +1,22 @@
+Proyecto Web de formación ADSI en el Centro de Comercio y Servicios SENA - CAUCA.
+
+Gestion Web a una base de datos de la que se entrega el sql, con inicio de sesión, manejo de roles, 
+creación de servicios web y generación de reportes con IReport.
+
+Para su funcionamiento es necesario descargar las siguientes librerías: 
+- commons-beanutils-1.8.2.jar
+- commons-collections-3.2.1.jar
+- commons-digester-2.1.jar
+- commons-javaflow.jar
+- commons-logging-1.1.jar
+- groovy-all-2.0.1.jar
+- gson-2.2.4-sources.jar
+- gson-2.2.4.jar
+- iText-2.1.7.jar
+- jasperreports-5.6.0.jar
+- jasperreports-fonts-5.6.0.jar
+- jasperreports-javaflow-5.6.0.jar
+- png-encoder-1.5.jar
+- poi-3.7.jar
+- primefaces-5.0.jar
+
