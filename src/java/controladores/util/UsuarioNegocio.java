@@ -6,9 +6,7 @@ package controladores.util;
 
 import entidades.Usuario;
 import entidades.UsuarioRol;
-import fachadas.UsuarioFacade;
 import fachadas.UsuarioRolFacade;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -17,7 +15,7 @@ import org.primefaces.context.RequestContext;
 
 /**
  *
- * @author ove
+ * @author Oscar Viveros Egas
  */
 public class UsuarioNegocio {
 

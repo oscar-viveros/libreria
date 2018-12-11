@@ -7,7 +7,7 @@ package entidades.vo;
 
 /**
  *
- * @author ove
+ * @author Oscar Viveros Egas
  */
 public class LibroVO {
     

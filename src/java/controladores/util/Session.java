@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author CarlosE
+ * @author Oscar Viveros Egas
  */
 public class Session {
 
@@ -28,11 +28,11 @@ public class Session {
     public Session() {
     }
 
-    /*
-     * CarlosE
-     * 01/05/2018
-     * Crear Sesiones a través del acceso a las propiedades de la aplicación y de la petición HTTP.
-     * Lo anterior por medio del contexto JSF o por medio del contexto HTTP
+    /**
+     * Crear Sesiones a través del acceso a las propiedades de la aplicación y de la petición HTTP,
+     * por medio del contexto JSF o por medio del contexto HTTP.
+     * 
+     * @param blnCrearSesion bandera para validar si la sesión ya ha sido creada
      */
     public void crearSesion_JSF_HTTP(boolean blnCrearSesion) {
         oRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -42,10 +42,10 @@ public class Session {
         oSession = oRequest.getSession(blnCrearSesion);
     }
 
-    /*
-     * CarlosE
-     * 01/05/2018
+    /**
      * Redirecciona la Url que entra como parámetro a su página respectiva
+     * 
+     * @param strUrlMenu la url se va a direccionar
      */
     public void redireccionarUrl(String strUrlMenu) {
         oFctx = FacesContext.getCurrentInstance();
@@ -59,10 +59,10 @@ public class Session {
         oFctx.responseComplete();
     }
 
-    /*
-    * CarlosE
-     * 01/05/2018
-     * Obtiene el usuario que se encuentra logueado en la aplicación.
+    /**
+     * Método que obtiene al usuario que se encuentra logueado
+     * 
+     * @return un objeto de la clase {@link UsuarioNegocio}, el cual contiene al usuario logueado
      */
     public UsuarioNegocio obtenerUsuarioLogueado() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();

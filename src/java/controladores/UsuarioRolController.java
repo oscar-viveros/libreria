@@ -244,6 +244,9 @@ public class UsuarioRolController implements Serializable {
 
     }
 
+    /**
+     * Método que permite autenticar un usuario
+     */
     public void autenticarUsuario() {
 
         String strContrasena = current.getUrUsuario().getUsuPassword();
@@ -263,10 +266,10 @@ public class UsuarioRolController implements Serializable {
         }
     }
 
-    /*   
-     * OscarV
-     * 01/05/2018
+    /**
+     * 
      * Destruye la session del usuario actual y lo redirecciona a la pagina de login
+     * @throws java.io.IOException
      */
     public void cerrarSesion() throws IOException {
         if (session != null) {

@@ -5,7 +5,6 @@
  */
 package controladores;
 
-import controladores.util.GeneradorReportes;
 import controladores.util.JsfUtil;
 import entidades.Libro;
 import entidades.Persona;
@@ -14,7 +13,6 @@ import entidades.vo.LibroVO;
 import fachadas.LibroFacade;
 import fachadas.PersonaFacade;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
@@ -25,8 +23,9 @@ import javax.servlet.ServletContext;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
- *
- * @author ove
+ * Clase MBean utilizada para la gestión de reportes
+ * 
+ * @author Oscar Viveros Egas
  */
 @ManagedBean
 @SessionScoped
@@ -45,6 +44,9 @@ public class ReportesController {
         personaFacade = new PersonaFacade();
     }
 
+    /**
+     * Método usado para controlar el tipo de reporte a generar
+     */
     public void generarReporte() {
         if (idTipoReporteSelec == 1) {
             reporteTodosLibros("libros");
@@ -55,6 +57,12 @@ public class ReportesController {
         }
     }
 
+    /**
+     * Método que construye los datos necesarios para generar el
+     * reporte de todos los libros existentes en la BD
+     * 
+     * @param reporte el nombre del archivo .jasper a generar
+     */
     private void reporteTodosLibros(String reporte) {
         List<Libro> lista = libroFacade.findAll();
         List<LibroVO> listaVO = new ArrayList<>();
@@ -73,9 +81,14 @@ public class ReportesController {
         parameters.put("libAutor", "libAutor");
         parameters.put("libGenero", "libGenero");
         parameters.put("libImagen", "libImagen");
-        GeneradorReportes.generarReporte(dataSource, parameters, exportaComo, reporte);
+        JsfUtil.generarReporte(dataSource, parameters, exportaComo, reporte);
     }
 
+    /**
+     * Método que construye los datos necesarios para generar el
+     * reporte de libros por autor existentes en la BD 
+     * @param reporte el nombre del archivo .jasper a generar
+     */
     private void reporteLibrosPorAutor(String reporte) {
         ServletContext sContext = (ServletContext) FacesContext.getCurrentInstance().
                 getExternalContext().getContext();
@@ -104,11 +117,9 @@ public class ReportesController {
             
         parameters.put("autNombre", "autNombre");
         parameters.put("listaLibrosVO", "listaLibrosVO");
-//        parameters.put("libAutor", "libAutor");
-//        parameters.put("libGenero", "libGenero");
         parameters.put("SUBREPORT_DIR", sContext.getRealPath("/reportes/"));
         System.out.println("reporte:"+reporte);
-        GeneradorReportes.generarReporte(dataSource, parameters, exportaComo, reporte);
+        JsfUtil.generarReporte(dataSource, parameters, exportaComo, reporte);
     }
 
     public Integer getIdTipoReporteSelec() {

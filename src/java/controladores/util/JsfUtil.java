@@ -1,6 +1,8 @@
 package controladores.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -17,9 +19,27 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 
+/**
+ * Clase de utilidad para los JSF
+ * 
+ * @author Oscar Viveros Egass
+ */
 public class JsfUtil {
 
+    private static final String CORREO_DE = "banco.adsi@gmail.com";
+    private static Properties properties;
+    
     public static SelectItem[] getSelectItems(List<?> entities, boolean selectOne) {
         int size = selectOne ? entities.size() + 1 : entities.size();
         SelectItem[] items = new SelectItem[size];
@@ -68,9 +88,13 @@ public class JsfUtil {
         return converter.getAsObject(FacesContext.getCurrentInstance(), component, theId);
     }
 
-    private static final String CORREO_DE = "banco.adsi@gmail.com";
-    private static Properties properties;
-
+    /**
+     * Envía un correo electrónico a partir de los parámetros especificados. 
+     * 
+     * @param para el correo del destinatario
+     * @param asunto el asunto del correo
+     * @param correo el contenido del correo
+     */
     public static void sendMail(String para, String asunto, String correo) {
 
         try {
@@ -104,5 +128,44 @@ public class JsfUtil {
             copy.add(iter.next());
         }
         return copy;
+    }
+    
+    /**
+     * Genera un reporte (XLSX o PDF) a partir de los parámetros especificados. 
+     * 
+     * @param dataSource la fuende de datos del reporte
+     * @param parameters los parámetros necesarios para el reporte
+     * @param exportaComo PDF o EXCEL 
+     * @param reporte el nombre del archivo .jasper a generar
+     */
+    public static void generarReporte(JRBeanCollectionDataSource dataSource,
+            HashMap<String, Object> parameters, String exportaComo, String reporte) {
+        try {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.responseComplete();
+
+            ServletContext sContext = (ServletContext) facesContext.getExternalContext().getContext();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    sContext.getRealPath("/reportes/" + reporte + ".jasper"), parameters, dataSource);
+
+            HttpServletResponse httpServletResponse = (HttpServletResponse) 
+                    FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            httpServletResponse.addHeader("Content-disposition", 
+                    "attachment; filename=report." + exportaComo);
+            ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+
+            if (exportaComo.equals("xlsx")) {
+                JRXlsxExporter docxExporter = new JRXlsxExporter();
+                docxExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                docxExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+                docxExporter.exportReport();
+            } else if (exportaComo.equals("pdf")) {
+                JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+            }
+
+        } catch (JRException | IOException ex) {
+            Logger.getLogger(JsfUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

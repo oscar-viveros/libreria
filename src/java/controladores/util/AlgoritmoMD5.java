@@ -7,8 +7,8 @@ package controladores.util;
 import java.security.*;
 
 /**
- *
- * @author CarlosE
+ * Clase que se usa para cifrar una contrase&ntilde;a en el algoritmo MD5
+ * @author Oscar Viveros Egass
  */
 public class AlgoritmoMD5 {
 

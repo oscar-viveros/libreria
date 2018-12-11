@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author ove
+ * @author Oscar Viveros Egas
  */
 public class AutorVO {
     
